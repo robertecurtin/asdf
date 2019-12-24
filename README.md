@@ -30,19 +30,19 @@ Constants don't exist, you have to declare a variable using `d` before you can u
 #### Implemented
 Format | Description
 --- | ---
-d <type> <name> <value>; | declare / define var
-a <digit 1> <digit 2 > <digit 3>; | add digits 2+3 and store in 1
-s <digit 1> <digit 2 > <digit 3>; | subtract
-s <str> <digit> <digit (opt)>;	| slice substring
-<name>;	| return value of variable
-	
+d [type] [name] [value]; | declare / define var
+a [digit 1] [digit 2 ] [digit 3]; | add digits 2+3 and store in 1
+s [digit 1] [digit 2 ] [digit 3]; | subtract
+s [str] [digit] [digit (opt)];	| slice substring
+[name];	| return value of variable
+
 #### Todo
 Format | Description
 --- | ---
-s <digit> <str>; | get string length
-a <array> <var>; | add to array
-a <digit> <array> <var>; | add to array at index
-d <digit> <array>; | delete element at index
-f <digit> <array>; | fetch value at index from array
-f <name> <digit x> <digit y> ... ; | for name = x; name < y; name++; 	runs everything before semicolon
-f <name> <name> <array> ... ; | for i, v in array
+s [digit] [str]; | get string length
+a [array] [var]; | add to array
+a [digit] [array] [var]; | add to array at index
+d [digit] [array]; | delete element at index
+f [digit] [array]; | fetch value at index from array
+f [name] [digit x] [digit y] ... ; | for name = x; name [ y; name++; 	runs everything before semicolon
+f [name] [name] [array] ... ; | for i, v in array
