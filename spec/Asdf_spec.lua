@@ -48,7 +48,7 @@ describe('Asdf', function()
   end
 
   local function the_value_in_the_array_at_this_index_should_be(array, index, expected)
-    assert.are.same(expected, asdf('f %s %s', index, array))
+    assert.are.same(expected, asdf(string.format('f %s %s', index, array)))
   end
 
   it('should return any single digit number', function()
@@ -143,7 +143,8 @@ describe('Asdf', function()
   end)
 
   it('should initialize an array', function()
-    -- when_this_variable_is_declared_as_an_array('a', 's', 'd')
-    -- the_value_in_the_array_at_this_index_should_be('a', 's', 'd')
+    given_this_variable_has_been_declared_as_a_number('f', 's')
+    when_this_variable_is_declared_as_an_array('a', 'f', 'd')
+    the_value_in_the_array_at_this_index_should_be('a', 'f', 'd')
   end)
 end)

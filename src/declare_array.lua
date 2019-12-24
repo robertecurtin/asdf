@@ -3,7 +3,9 @@ return function(vars, args)
   vars.declare(args[3], {
     type = 'a',
     value = {
-      type = args[4],
-      value = args[5]
-  }})
+      {
+        type = args[4],
+        value = args[5]
+      }
+    }})
 end
