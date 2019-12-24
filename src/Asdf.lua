@@ -41,7 +41,11 @@ return function()
         if args[1] == 'a' then
           return 'add'
         elseif args[1] == 's' then
-          return 'subtract'
+          if vars[args[2]].type == 's' then
+            return 'substring'
+          else
+            return 'subtract'
+          end
         elseif args[1] == 'd' then
           return 'declare'
         end
@@ -68,6 +72,10 @@ return function()
       -- s <digit 1> <digit 2> <digit 3>
       vars[args[2]].value = number_to_asdf(
         asdf_to_number(vars[args[3]].value) - asdf_to_number(vars[args[4]].value))
+    elseif action == 'substring' then
+      -- s <str> <digit 1> <digit 2>
+      vars[args[2]].value = vars[args[2]].value:sub(
+        asdf_to_number(vars[args[3]].value) + 1, asdf_to_number(vars[args[4]].value) + 1)
     end
   end
 end
