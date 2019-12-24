@@ -17,35 +17,20 @@ return function()
       table.insert(args, v)
     end
 
-    local function parse_action()
-      if #args == 4 then
-        if args[1] == 'a' then
-          return 'add'
-        elseif args[1] == 's' then
-          if vars[args[2]].type == 's' then
-            return 'substring'
-          else
-            return 'subtract'
-          end
-        elseif args[1] == 'd' then
-          return 'declare'
+    if #args == 4 then
+      if args[1] == 'a' then
+        add(vars, args)
+      elseif args[1] == 's' then
+        if vars[args[2]].type == 's' then
+          substring(vars, args)
+        else
+          subtract(vars, args)
         end
-      elseif #args == 1 then return 'get'
+      elseif args[1] == 'd' then
+        declare(vars, args)
       end
-    end
-
-    local action = parse_action()
-
-    if action == 'declare' then
-      declare(vars, args)
-    elseif action == 'get' then
+    elseif #args == 1 then
       return get(vars, args)
-    elseif action == 'add' then
-      add(vars, args)
-    elseif action == 'subtract' then
-      subtract(vars, args)
-    elseif action == 'substring' then
-      substring(vars, args)
     end
   end
 end
