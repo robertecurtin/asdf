@@ -19,22 +19,24 @@ return function()
       table.insert(args, v)
     end
 
-    if #args == 4 then
-      if args[1] == 'a' then
-        add(vars, args)
-      elseif args[1] == 's' then
-        if vars[args[2]].type == 's' then
-          substring(vars, args)
-        else
-          subtract(vars, args)
-        end
-      elseif args[1] == 'd' then
-        declare(vars, args)
-      end
-    elseif #args == 5 then
-      declare_array(vars, args)
-    elseif #args == 1 then
+    if #args == 1 then
       return get(vars, args)
+    end
+
+    if args[1] == 'a' then
+      add(vars, args)
+    elseif args[1] == 's' then
+      if vars[args[2]].type == 's' then
+        substring(vars, args)
+      else
+        subtract(vars, args)
+      end
+    elseif args[1] == 'd' then
+      if #args == 4 then
+        declare(vars, args)
+      else
+        declare_array(vars, args)
+      end
     elseif args[1] == 'f' then
       return fetch(vars, args)
     end
