@@ -1,34 +1,12 @@
+local add = require 'add'
+local subtract = require 'subtract'
+local declare = require 'declare'
+local get = require 'get'
+local substring = require 'substring'
+
 return function()
   local vars = {
     }
-
-  local function number_to_asdf(n)
-    local o = ''
-    while n > 0 do
-      o = o .. ({
-        [0] = 'a',
-        [1] = 's',
-        [2] = 'd',
-        [3] = 'f'
-      })[n % 4]
-      n = math.floor(n / 4)
-    end
-    return o:reverse()
-  end
-
-  local function asdf_to_number(n)
-    local o = 0
-    for v in n:gmatch('%a') do
-      o = o * 4
-      o = o + ({
-        a = 0,
-        s = 1,
-        d = 2,
-        f = 3
-      })[v]
-    end
-    return o
-  end
 
   return function(_args)
     local args = {}
@@ -56,26 +34,15 @@ return function()
     local action = parse_action()
 
     if action == 'declare' then
-      -- d <type> <name> <value>
-      vars[args[3]] = {
-        type = args[2],
-        value = args[4]
-      }
+      declare(vars, args)
     elseif action == 'get' then
-      -- a/s/d/f
-      return vars[args[1]].value
+      return get(vars, args)
     elseif action == 'add' then
-      -- a <digit 1> <digit 2> <digit 3>
-      vars[args[2]].value = number_to_asdf(
-        asdf_to_number(vars[args[3]].value) + asdf_to_number(vars[args[4]].value))
+      add(vars, args)
     elseif action == 'subtract' then
-      -- s <digit 1> <digit 2> <digit 3>
-      vars[args[2]].value = number_to_asdf(
-        asdf_to_number(vars[args[3]].value) - asdf_to_number(vars[args[4]].value))
+      subtract(vars, args)
     elseif action == 'substring' then
-      -- s <str> <digit 1> <digit 2>
-      vars[args[2]].value = vars[args[2]].value:sub(
-        asdf_to_number(vars[args[3]].value) + 1, asdf_to_number(vars[args[4]].value) + 1)
+      substring(vars, args)
     end
   end
 end
