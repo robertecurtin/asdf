@@ -1,8 +1,10 @@
 local add = require 'add'
 local subtract = require 'subtract'
 local declare = require 'declare'
+local declare_array = require 'declare_array'
 local get = require 'get'
 local substring = require 'substring'
+local fetch = require 'fetch'
 
 return function()
   local vars = {}
@@ -29,8 +31,12 @@ return function()
       elseif args[1] == 'd' then
         declare(vars, args)
       end
+    elseif #args == 5 then
+      declare_array(vars, args)
     elseif #args == 1 then
       return get(vars, args)
+    elseif args[1] == 'f' then
+      return fetch(vars, args)
     end
   end
 end

@@ -1,6 +1,6 @@
 local Asdf = require 'Asdf'
 
-describe('asdf', function()
+describe('Asdf', function()
   local asdf
 
   local chars = { 'a', 's', 'd', 'f' }
@@ -21,6 +21,12 @@ describe('asdf', function()
 
   local when_this_variable_is_declared_as_a_number = given_this_variable_has_been_declared_as_a_number
 
+  local function given_this_variable_has_been_declared_as_an_array(array, value_type, value)
+    asdf(string.format('d a %s %s %s', array, value_type, value))
+  end
+
+  local when_this_variable_is_declared_as_an_array = given_this_variable_has_been_declared_as_an_array
+
   local function when_these_numbers_are_added(a, b, c)
     asdf(string.format('a %s %s %s', a, b, c))
   end
@@ -39,6 +45,10 @@ describe('asdf', function()
 
   local function the_value_of_this_variable_should_be(v, expected)
     assert.are.same(expected, asdf(v))
+  end
+
+  local function the_value_in_the_array_at_this_index_should_be(array, index, expected)
+    assert.are.same(expected, asdf('f %s %s', index, array))
   end
 
   it('should return any single digit number', function()
@@ -130,5 +140,10 @@ describe('asdf', function()
 
     when_this_string_is_spliced('asdf', 'a', 'a')
     the_value_of_this_variable_should_be('asdf', 's')
+  end)
+
+  it('should initialize an array', function()
+    -- when_this_variable_is_declared_as_an_array('a', 's', 'd')
+    -- the_value_in_the_array_at_this_index_should_be('a', 's', 'd')
   end)
 end)
