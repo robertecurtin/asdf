@@ -5,8 +5,11 @@ local get = require 'get'
 local substring = require 'substring'
 
 return function()
-  local vars = {
-    }
+  local vars = {}
+  vars.read = function(k) return vars[k].value end
+  vars.write = function(k, v) vars[k].value = v end
+  vars.type = function(k) return vars[k].type end
+  vars.declare = function(k, v) vars[k] = v end
 
   return function(_args)
     local args = {}
