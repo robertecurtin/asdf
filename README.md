@@ -47,3 +47,4 @@ d [index] [array]; | delete element at index
 f [index] [array]; | fetch value at index from array
 f [name] [digit x] [digit y] ... ; | for name = x; name < y; name++; 	declares `name` as a digit and runs everything before semicolon
 f [name] [name] [array] ... ; | for i, v in array
+s [digit] ; | skip the provided number of digits back in the stack
