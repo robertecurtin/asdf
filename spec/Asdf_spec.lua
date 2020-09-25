@@ -27,6 +27,10 @@ describe('Asdf', function()
 
   local when_this_variable_is_declared_as_an_array = given_this_variable_has_been_declared_as_an_array
 
+  local function when_this_array_is_appended_with(array, value)
+    asdf(string.format('a %s %s', array, value))
+  end
+
   local function when_these_numbers_are_added(a, b, c)
     asdf(string.format('a %s %s %s', a, b, c))
   end
@@ -146,5 +150,13 @@ describe('Asdf', function()
     given_this_variable_has_been_declared_as_a_number('f', 's')
     when_this_variable_is_declared_as_an_array('a', 'f', 'd')
     the_value_in_the_array_at_this_index_should_be('a', 'f', 'd')
+  end)
+
+  it('should append to an array', function()
+    given_this_variable_has_been_declared_as_a_number('s', 's')
+    given_this_variable_has_been_declared_as_a_number('d', 'd')
+    when_this_variable_is_declared_as_an_array('a', 'd', 's')
+    when_this_array_is_appended_with('a', 'd')
+    the_value_in_the_array_at_this_index_should_be('a', 'd', 'd')
   end)
 end)

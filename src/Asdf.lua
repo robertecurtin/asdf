@@ -1,4 +1,5 @@
 local add = require 'add'
+local append = require 'append'
 local subtract = require 'subtract'
 local declare = require 'declare'
 local declare_array = require 'declare_array'
@@ -24,7 +25,11 @@ return function()
     end
 
     if args[1] == 'a' then
-      add(vars, args)
+      if #args == 4 then
+        add(vars, args)
+      else
+        append(vars, args)
+      end
     elseif args[1] == 's' then
       if vars[args[2]].type == 's' then
         substring(vars, args)
