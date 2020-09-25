@@ -49,3 +49,4 @@ a [digit] [array] [var]; | add to array at index
 d [digit] [array]; | delete element at index
 f [name] [digit x] [digit y] ... ; | for name = x; name < y; name++; 	declares `name` as a digit and runs everything before semicolon
 f [name] [name] [array] ... ; | for i, v in array; declares `name`s as keys and runs everything before semicolon
+s [digit] ; | skip the provided number of digits back in the stack
