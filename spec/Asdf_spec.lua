@@ -39,9 +39,9 @@ describe('Asdf', function()
     asdf(string.format('s %s %s %s', a, b, c))
   end
 
-  -- local function when_these_strings_are_appended(a, b)
-  --   asdf(string.format('s %s %s', a, b))
-  -- end
+  local function when_these_strings_are_appended(a, b, c)
+    asdf(string.format('a %s %s %s', a, b, c))
+  end
 
   local function when_this_string_is_spliced(a, b, c)
     asdf(string.format('s %s %s %s', a, b, c))
@@ -122,13 +122,14 @@ describe('Asdf', function()
     end
   end)
 
-  -- it('should append strings', function()
-  --   given_this_variable_has_been_declared_as_a_string('a', 's')
-  --   given_this_variable_has_been_declared_as_a_string('d', 'f')
+  it('should append strings', function()
+    given_this_variable_has_been_declared_as_a_string('a', 'a')
+    given_this_variable_has_been_declared_as_a_string('s', 's')
+    given_this_variable_has_been_declared_as_a_string('d', 'd')
 
-  --   when_these_strings_are_appended('a', 'd')
-  --   the_value_of_this_variable_should_be('a', 'sf')
-  -- end)
+    when_these_strings_are_appended('a', 's', 'd')
+    the_value_of_this_variable_should_be('a', 'sd')
+  end)
 
   it('should support substrings', function()
     given_this_variable_has_been_declared_as_a_string('asdf', 'asdf')

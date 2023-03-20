@@ -36,6 +36,7 @@ d s/d [name] [value]; | declare a string or digit
 d a [name] [type] [value] | declare an array with initial element at index `s`
 a [digit 1] [digit 2 ] [digit 3]; | add digits 2+3 and store in 1
 a [array] [var]; | append to array
+a [str] [str]; | append strings 1+2 and store in 1
 s [digit 1] [digit 2 ] [digit 3]; | subtract digits 2-3 and store in 1
 s [str] [digit] [digit (opt)];	| slice substring
 [name];	| return value of variable
