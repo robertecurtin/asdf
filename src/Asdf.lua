@@ -15,11 +15,14 @@ return function()
   vars.write = function(k, v) vars[k].value = v end
   vars.type = function(k) return vars[k].type end
   vars.declare = function(k, v) vars[k] = v end
+  vars.exists = function(k) return vars[k] end
 
   return function(_args)
     local args = {}
+    local types = {}
     for v in _args:gmatch('%a+') do
       table.insert(args, v)
+      table.insert(types, vars.exists(v) and vars.type(v))
     end
 
     if #args == 1 then
@@ -27,17 +30,17 @@ return function()
     end
 
     if args[1] == 'a' then
-      if vars.type(args[2]) == 'd' then
+      if types[2] == 'd' then
         add(vars, args)
-      elseif vars.type(args[2]) == 's' then
+      elseif types[2] == 's' then
         append_strings(vars, args)
-      elseif vars.type(args[2]) == 'a' then
+      elseif types[2] == 'a' then
         append_to_array(vars, args)
       end
     elseif args[1] == 's' then
-      if vars[args[2]].type == 's' then
+      if types[2] == 's' then
         substring(vars, args)
-      elseif vars[args[2]].type == 'd' and vars[args[3]].type == 's' then
+      elseif types[2] == 'd' and types[3] == 's' then
         string_length(vars, args)
       else
         subtract(vars, args)
