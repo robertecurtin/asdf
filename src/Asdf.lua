@@ -17,6 +17,12 @@ return function()
   vars.declare = function(k, v) vars[k] = v end
   vars.exists = function(k) return vars[k] end
 
+  local invalid_input = function(context)
+    return function(vars, args)
+      error('Invalid input: ' .. context, vars, args)
+    end
+  end
+
   return function(_args)
     local args = {}
     local types = {}
@@ -29,30 +35,38 @@ return function()
       return get(vars, args)
     end
 
-    if args[1] == 'a' then
-      if types[2] == 'd' then
-        add(vars, args)
-      elseif types[2] == 's' then
-        append_strings(vars, args)
-      elseif types[2] == 'a' then
-        append_to_array(vars, args)
+    return (({
+      a = function()
+        return (({
+          a = append_to_array,
+          s = append_strings,
+          d = add
+        })[types[2]])(vars, args)
+      end,
+      s = function()
+        return (({
+          a = invalid_input('s a'),
+          s = substring,
+          d = function(vars, args)
+            if types[3] == 's' then
+              string_length(vars, args)
+            else
+              subtract(vars, args)
+            end
+          end,
+          f = invalid_input('s f')
+        })[types[2]])(vars, args)
+      end,
+      d = function()
+        if #args == 4 then
+          declare(vars, args)
+        else
+          declare_array(vars, args)
+        end
+      end,
+      f = function()
+        return fetch(vars, args)
       end
-    elseif args[1] == 's' then
-      if types[2] == 's' then
-        substring(vars, args)
-      elseif types[2] == 'd' and types[3] == 's' then
-        string_length(vars, args)
-      else
-        subtract(vars, args)
-      end
-    elseif args[1] == 'd' then
-      if #args == 4 then
-        declare(vars, args)
-      else
-        declare_array(vars, args)
-      end
-    elseif args[1] == 'f' then
-      return fetch(vars, args)
-    end
+    })[args[1]])()
   end
 end
