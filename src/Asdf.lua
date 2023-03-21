@@ -6,6 +6,7 @@ local declare = require 'declare'
 local declare_array = require 'declare_array'
 local get = require 'get'
 local substring = require 'substring'
+local string_length = require 'string_length'
 local fetch = require 'fetch'
 
 return function()
@@ -36,6 +37,8 @@ return function()
     elseif args[1] == 's' then
       if vars[args[2]].type == 's' then
         substring(vars, args)
+      elseif vars[args[2]].type == 'd' and vars[args[3]].type == 's' then
+        string_length(vars, args)
       else
         subtract(vars, args)
       end

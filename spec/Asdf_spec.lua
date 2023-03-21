@@ -43,6 +43,14 @@ describe('Asdf', function()
     asdf(string.format('a %s %s %s', a, b, c))
   end
 
+  local function when_string_length_of(a)
+    return {
+      is_stored_in = function (b)
+        asdf(string.format('s %s %s', b, a))
+      end
+    }
+  end
+
   local function when_this_string_is_spliced(a, b, c)
     asdf(string.format('s %s %s %s', a, b, c))
   end
@@ -129,6 +137,22 @@ describe('Asdf', function()
 
     when_these_strings_are_appended('a', 's', 'd')
     the_value_of_this_variable_should_be('a', 'sd')
+  end)
+
+  it('should return string length', function()
+    given_this_variable_has_been_declared_as_a_number('a', 'f')
+    given_this_variable_has_been_declared_as_a_string('s', 'a')
+
+    when_string_length_of('s').is_stored_in('a')
+    the_value_of_this_variable_should_be('a', 's')
+  end)
+
+  it('should return a longer string length', function()
+    given_this_variable_has_been_declared_as_a_number('a', 'f')
+    given_this_variable_has_been_declared_as_a_string('s', 'asdf')
+
+    when_string_length_of('s').is_stored_in('a')
+    the_value_of_this_variable_should_be('a', 'sa')
   end)
 
   it('should support substrings', function()
