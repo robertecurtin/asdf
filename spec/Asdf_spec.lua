@@ -63,6 +63,10 @@ describe('Asdf', function()
     assert.are.same(expected, asdf(string.format('f %s %s', index, array)))
   end
 
+  it('should throw an error when given invalid input', function()
+    assert.has_error(function() asdf('s a') end, 'Invalid input: s')
+    end)
+
   it('should return any single digit number', function()
     for _, var in pairs(chars) do
       for _, value in pairs(chars) do

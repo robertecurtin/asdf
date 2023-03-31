@@ -28,7 +28,7 @@ return function()
     local types = {}
     for v in _args:gmatch('%a+') do
       table.insert(args, v)
-      table.insert(types, vars.exists(v) and vars.type(v))
+      table.insert(types, vars.exists(v) and vars.type(v) or false)
     end
 
     if #args == 1 then
@@ -44,18 +44,22 @@ return function()
         })[types[2]])(vars, args)
       end,
       s = function()
-        return (({
-          a = invalid_input('s a'),
-          s = substring,
-          d = function(vars, args)
-            if types[3] == 's' then
-              string_length(vars, args)
-            else
-              subtract(vars, args)
-            end
-          end,
-          f = invalid_input('s f')
-        })[types[2]])(vars, args)
+        if not types[2] then
+          invalid_input('s')()
+        else
+          return (({
+            a = invalid_input('s a'),
+            s = substring,
+            d = function(vars, args)
+              if types[3] == 's' then
+                string_length(vars, args)
+              else
+                subtract(vars, args)
+              end
+            end,
+            f = invalid_input('s f')
+          })[types[2]])(vars, args)
+        end
       end,
       d = function()
         if #args == 4 then
